@@ -1,0 +1,6 @@
+requests
+fake-useragent
+tqdm
+pandas
+openpyxl
+urllib3
