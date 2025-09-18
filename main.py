@@ -16,8 +16,7 @@ class ScrapingPipeline():
             "phankhu": {},
             "kientruc": {}
         }
-        # This dictionary maps the key in the general data (e.g., 'MaDuAnQH')
-        # to the prefix we'll use for the enriched fields (e.g., 'DuAnQH').
+        # This dictionary maps the key in the general data to the prefix we'll use for the enriched fields.
         self.related_indices = {
             "daqh": ("MaDuAnQH", "DuAnQH"),
             "phankhu": ("MaQHPhanKhu", "QHPhanKhu"),
@@ -66,7 +65,7 @@ class ScrapingPipeline():
                 if related_info:
                     self.related_data_cache[info_type][code] = related_info
 
-        # 4. ENRICHMENT STEP: Merge related data into the original records
+        # 4. Enrich related data into the original records
         enriched_records = []
         for record in fetched_records:
             # This loop modifies the 'record' dictionary in-place by adding new keys
@@ -82,7 +81,6 @@ class ScrapingPipeline():
                         if isinstance(related_info[0], dict):
                             for k, v in related_info[0].items():
                                 record[f"{record_key_prefix}_{k}"] = v
-            # The fully merged record is added to our final list
             enriched_records.append(record)
         
         return enriched_records
