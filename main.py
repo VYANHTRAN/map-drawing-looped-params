@@ -1,4 +1,5 @@
 import tqdm
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from src import config
@@ -122,6 +123,8 @@ class ScrapingPipeline():
                             
                             batch_tasks = []
                             save_progress(PROGRESS_FILE, soto_loop, sothua_loop + 1, idx)
+
+                            time.sleep(5)
                     
                     if not config.STOP_SCRAPE and batch_tasks:
                         records = self._fetch_and_process_batch(batch_tasks)
