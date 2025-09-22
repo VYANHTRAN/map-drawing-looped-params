@@ -14,13 +14,13 @@ def load_progress(file_path=PROGRESS_FILE):
         try:
             with open(file_path, "r") as f:
                 progress = json.load(f)
-                return progress.get('so_to', 1), progress.get('so_thua', 1), progress.get('phuong_xa_index', 0)
+                return [progress.get('so_to', 1), progress.get('so_thua', 1), progress.get('phuong_xa_index', 0)]
         except (json.JSONDecodeError, FileNotFoundError):
              print("Progress file is corrupted or empty. Starting from scratch.")
-             return 1, 1, 20194
+             return [1, 1, 20194]
     else:
         logging.info("No previous progress file found. Starting from scratch.")
-        return 1, 1, 20194
+        return [1, 1, 20194]
 
 def save_progress(file_path, soTo, soThua, phuongXa_index):
     """
