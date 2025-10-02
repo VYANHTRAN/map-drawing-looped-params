@@ -88,9 +88,10 @@ class ScrapingPipeline():
 
     def run(self):
         soTo_start, soThua_start, phuongXa_index_start = self.progress
+        print(f"Resuming from phuongXa index {phuongXa_index_start}, soTo {soTo_start}, soThua {soThua_start}")
 
         try:
-            for idx in range(0, len(self.codes) - 1):
+            for idx in range(phuongXa_index_start, len(self.codes) - 1):
                 if config.STOP_SCRAPE:
                     print("Stop signal received. Halting pipeline.")
                     break
@@ -102,14 +103,14 @@ class ScrapingPipeline():
 
                 print(f"Processing phuongXa: {code} ({idx + 1}/{len(self.codes)}). Starting at soTo {soTo}, soThua {soThua}")
 
-                for soto_loop in tqdm.tqdm(range(soTo, MAX_SOTO + 1), desc=f"phuongXa {code}"):
+                for soto_loop in tqdm.tqdm(range(soTo, MAX_SOTO - soTo), desc=f"phuongXa {code}"):
                     if config.STOP_SCRAPE:
                         break
                     
                     start_thua = soThua if soto_loop == soTo else 1
 
                     batch_tasks = []
-                    for sothua_loop in tqdm.tqdm(range(start_thua, MAX_SOTHUA + 1), desc=f"soTo {soto_loop}"):
+                    for sothua_loop in tqdm.tqdm(range(start_thua, MAX_SOTHUA - start_thua), desc=f"soTo {soto_loop}"):
                         if config.STOP_SCRAPE:
                             break
                         
