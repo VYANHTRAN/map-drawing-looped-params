@@ -19,7 +19,7 @@ OUTPUT_FILE = f"{OUTPUT_DIR}/planning_data.jsonl"
 PROGRESS_FILE = f"{OUTPUT_DIR}/progress.json"
 
 # -- Scraping Parameters --
-MAX_SOTO = 500
+MAX_SOTO = 400 
 MAX_SOTHUA = 1000
 BATCH_SIZE = 100 
 
